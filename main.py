@@ -30,18 +30,19 @@ while game_Is_Running:
     # if snake head is 15 pixels away from a 10x10 pixel food add score, jump and increase snake size
     if snake.head.distance(food) < 17:
         food.reposition()
+
         snake.extend_snake()
         scoreboard.add_score()
 
     # collision with wall
     if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 260 or snake.head.ycor() < -290:
-        game_Is_Running = False
-        scoreboard.game_over()
+        scoreboard.restart()
+        snake.reset_snake()
 
     # collision with tail
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
-            game_Is_Running = False
-            scoreboard.game_over()
+            scoreboard.restart()
+            snake.reset_snake()
 
 screen.exitonclick()
